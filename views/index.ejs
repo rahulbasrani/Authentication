@@ -1,0 +1,35 @@
+<%- include('includes/head.ejs') %>
+
+<main>
+    <div class="index-block">
+        <h1>Welcome to MembersOnly</h1>
+        <h3>Messages</h3>
+        <% if(result) { %>
+            <ul>
+                <% for(let i = 0; i < result.length; i++) {%>
+                    <li>
+                        <h3><%= result[i].title %></h3>
+                        <p><%= result[i].message %></p>
+                        <% if(isMember) { %>
+                            <div class="written-by">
+                                - <%= result[i].author.email %> at <%= result[i].createdTime %>
+                            </div>
+                        <% } else if(!isMember && authenticated) { %>
+                            <a href="/join">Join the club to see who wrote that</a>
+                        <% } else { %>
+                            <a href="/login">Login to see who wrote that</a>
+                        <% } %>
+                        <% if(admin) { %>
+                            <form method="POST" action="/delete">
+                                <input type="hidden" name="delete_id" value="<%= result[i]._id %>">
+                                <button class="delete-btn">Delete</button>
+                            </form>
+                        <% } %>
+                    </li>
+                <% } %>
+            </ul>
+        <% } %>
+    </div>
+</main>
+</body>
+</html>

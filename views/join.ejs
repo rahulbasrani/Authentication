@@ -1,0 +1,27 @@
+<%- include('includes/head.ejs') %>
+
+<main>
+  <div class="form-container">
+    <div class="title">
+      <h1>Join Club</h1>
+    </div>
+    <% if(errors){ %>
+    <div class="errors"><%= errors[0].msg %></div>
+    <% } %> 
+    <% if(isMember) { %>
+      <div class="member-message">
+        <h1>You are a member of the club.</h1>
+      </div>
+    <% } else { %>
+      <form method="POST" action="/join">
+        <div class="form-group">
+          <label for="passphrase">Enter the passphrase to join the club</label>
+          <input class="form-control"type="password" name="passphrase" required />
+        </div>
+        <button type="submit" class="btn">Join</button>
+      </form>
+    <% } %>
+  </div>
+</main>
+</body>
+</html>
