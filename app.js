@@ -11,7 +11,7 @@ require("dotenv").config();
 const route = require("./routes/route");
 
 // DB Connection
-mongoose.connect("mongodb+srv://rahul:rahul@rb.icbpz.mongodb.net/authentication?retryWrites=true&w=majority", {
+mongoose.connect(process.env.MONGOdb, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
@@ -34,7 +34,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Setting up the session
 app.use(
   session({
-    secret: "mynameisvinodbahadurthapayoutuber",
+    secret: process.env.SECRET,
     store: new MongoStore({ mongooseConnection: db, collection: "sessions" }),
     resave: false,
     saveUninitialized: true,
